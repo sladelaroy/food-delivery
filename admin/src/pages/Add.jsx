@@ -39,7 +39,7 @@ const Add = () => {
         console.log(response.data.success)
         setData({
           name: "",
-          description: "",
+          // description: "",
           price: "",
           category: "Salad"
         });

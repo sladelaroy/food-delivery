@@ -3,6 +3,7 @@ import cors from 'cors'
 import {config} from 'dotenv'
 import connectDB from './config/connectDB.js'
 import foodRouter from './routes/foodRoute.js'
+import userRouter from './routes/userRoute.js'
 
 config()
 const port = process.env.PORT
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/food", foodRouter)
+app.use("/api/user", userRouter)
 app.use("/images", express.static('uploads'))
 
 app.listen(port, () => {
