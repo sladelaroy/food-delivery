@@ -6,6 +6,8 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import LoginPopup from "./components/LoginPopup";
+
+export const backendUrl = import.meta.env.VITE_BACKEND_URL
 const App = () => {
 const [showLogin, setShowLogin] = useState(false)
 
