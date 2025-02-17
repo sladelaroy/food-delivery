@@ -8,7 +8,7 @@ import Orders from "./pages/Orders";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
 
-export const backendUrl = 'http://localhost:4000'
+export const backendUrl = import.meta.env.VITE_FRONTEND_URL
 
 function App() {
   return (

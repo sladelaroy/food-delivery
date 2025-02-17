@@ -6,6 +6,8 @@ import PlaceOrder from "./pages/PlaceOrder";
 import Cart from "./pages/Cart";
 import Footer from "./components/Footer";
 import LoginPopup from "./components/LoginPopup";
+import Verify from "./pages/Verify";
+import MyOrders from "./pages/MyOrders";
 
 export const backendUrl = import.meta.env.VITE_BACKEND_URL
 const App = () => {
@@ -20,6 +22,8 @@ const [showLogin, setShowLogin] = useState(false)
           <Route path="/" element={<Home />} />
           <Route path="/order" element={<PlaceOrder />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/myorders" element={<MyOrders />} />
         </Routes>
       </div>
       <Footer />

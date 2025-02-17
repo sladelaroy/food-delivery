@@ -11,6 +11,8 @@ const addToCart = async (req, res) => {
       cartData[req.body.itemId] += 1;
     }
 
+    console.log(cartData)
+
     await userModel.findByIdAndUpdate(req.body.userId, { cartData });
     res.json({ success: true, message: "Added to Cart" });
   } catch (error) {
@@ -41,9 +43,9 @@ const removeFromCart = async (req, res) => {
 const getUserCart = async (req, res) => {
   try {
     let userData = await userModel.findOne({ _id: req.body.userId });
-
     let cartData = await userData.cartData;
-    res.json({ success: true, message: cartData });
+    console.log(cartData)
+    res.json({ success: true, cartData });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });

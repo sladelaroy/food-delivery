@@ -9,8 +9,9 @@ const StoreContextProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState("");
   const [food_list, setFood_List] = useState([]);
+  const [deliveryFee, setDeliveryFee] = useState(5);
   const addToCart = async (itemId) => {
-    if (!cartItems[itemId]) {
+    if (!cartItems?.[itemId]) {
       setCartItems((prev) => ({ ...prev, [itemId]: 1 }));
     } else {
       setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
@@ -34,7 +35,7 @@ const StoreContextProvider = ({ children }) => {
       toast.error(error.message);
     }
   };
-  
+
   const removeFromCart = async (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
     try {
@@ -50,11 +51,9 @@ const StoreContextProvider = ({ children }) => {
           toast.error(response.data.message);
         }
       }
-      
     } catch (error) {
       console.log(error);
-      toast.error(error.message)
-      
+      toast.error(error.message);
     }
   };
 
@@ -74,7 +73,7 @@ const StoreContextProvider = ({ children }) => {
       const response = await axios.get(backendUrl + "/api/food/list");
       if (response.data.success) {
         setFood_List(response.data.data);
-        console.log(food_list);
+        console.log(response.data.data);
       }
     } catch (error) {
       console.log(error);
@@ -83,28 +82,33 @@ const StoreContextProvider = ({ children }) => {
 
   const loadCartData = async (token) => {
     try {
-      const response = await axios.post(backendUrl+"/api/cart/get", {}, {headers: {token}}) 
+      const response = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
       if (response.data.success) {
-        setCartItems(response.data.cartData)
+        setCartItems(response.data.cartData || {});
       } else {
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  }
+  };
 
   useEffect(() => {
     async function loadData() {
       await fetchList();
-      if (localStorage.getItem("token")) {
-        setToken(localStorage.getItem("token"));
-        await loadCartData(localStorage.getItem("token"))
+      const storedToken = localStorage.getItem("token");
+      if (storedToken) {
+        setToken(storedToken);
+        await loadCartData(storedToken); // Ensure this runs properly
       }
     }
     loadData();
-  },[]);
+  }, []);
   const contextValue = {
     food_list,
     removeFromCart,
@@ -114,7 +118,8 @@ const StoreContextProvider = ({ children }) => {
     getTotalCartAmount,
     backendUrl,
     token,
-    setToken
+    setToken,
+    deliveryFee
   };
 
   return (

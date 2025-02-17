@@ -10,7 +10,8 @@ const Cart = () => {
     food_list,
     removeFromCart,
     getTotalCartAmount,
-    backendUrl
+    backendUrl,
+    deliveryFee
   } = useContext(StoreContext);
   return (
     <div className="cart">
@@ -28,8 +29,8 @@ const Cart = () => {
         {food_list.map((item, index) => {
           if (cartItems[item._id] > 0) {
             return (
-              <div>
-                <div key={index} className="cart-items-title cart-items-item">
+              <div key={index} >
+                <div className="cart-items-title cart-items-item">
                   <img src={backendUrl + "/images/" + item.image} alt="" />
                   <p>{item.name}</p>
                   <p>${item.price}</p>
@@ -50,17 +51,17 @@ const Cart = () => {
             <div>
               <div className="cart-total-details">
                 <p className="subtotal">Subtotal</p>
-                <p>{getTotalCartAmount()}</p>
+                <p>${getTotalCartAmount()}</p>
               </div>
               <hr />
               <div className="cart-total-details">
                 <p className="delivery-fee">Delivery fee</p>
-                <p>{2}</p>
+                <p>${getTotalCartAmount() === 0 ? 0 : deliveryFee}</p>
               </div>
               <hr />
               <div className="cart-total-details">
                 <b className="total">Total</b>
-                <b>{getTotalCartAmount() + 2}</b>
+                <b>${getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + deliveryFee}</b>
               </div>
             </div>
             <button onClick={() => navigate("/order")}>
