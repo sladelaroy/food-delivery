@@ -23,7 +23,6 @@ const List = () => {
   };
 
   const removeFood = async (foodId) => {
-    console.log(foodId)
     try {
       const response = await axios.post(backendUrl + '/api/food/remove', {id: foodId})
       if (response.data.success) {

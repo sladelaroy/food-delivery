@@ -15,7 +15,6 @@ const Add = () => {
   });
 
   useEffect(() => {
-    console.log(data);
   }, [data]);
 
   const onChangeHandler = (event) => {

@@ -44,7 +44,7 @@ const LoginPopup = ({ setShowLogin }) => {
   }
 
   useEffect(() => {
-    console.log(data);
+
   }, [data]);
   return (
     <div className="login-popup">
